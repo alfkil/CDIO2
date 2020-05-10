@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User client</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="../../../target/CDIO2-1.0-SNAPSHOT/WEB-INF/serializer.js"></script>
+    <script src="test.js"></script>
+    <script>
+        function updateList() {
+            test();
+            $("#liste").html('<tr><th>ID</th><th>Navn</th><th>Initialer</th><th>CPR</th><th>Password</th><th>Rolle</th></tr>');
+            for(var i = 0; i < 100; i++) {
+                var data = JSON.stringify({userId: i});
+                $.ajax({				 //Indleder et asynkront ajax kald
+                    url : 'rest/user/read',
+                    type : 'POST',	       //Typen af HTTP requestet (GET er default)
+                    data: data,
+                    contentType: 'application/json',
+                    success : function(back){//Funktion der skal udføres når data er hentet
+                        console.log(back);
+                        if(back != undefined) {
+                            // var result = JSON.parse(back);
+                            $('#liste').append("<tr><td>" + back.userId + "</td><td>" + back.userName + "</td><td>" + back.ini + "</td><td>" + back.cpr + "</td><td>" + back.password + "</td><td>" + back.role + "</td>");
+                        }
+                    }
+                });
+            }
+        }
+        // function create() {
+        //     var data =  $('#ingredientform').serializeJSON();
+        //     console.log(data);
+        //     $.ajax({				 //Indleder et asynkront ajax kald
+        //         url : 'rest/ingredient/create',
+        //         type : 'POST',	       //Typen af HTTP requestet (GET er default)
+        //         data: data,
+        //         contentType: 'application/json',
+        //         success : function(data){//Funktion der skal udføres når data er hentet
+        //             console.log(data);
+        //             $('#mydiv').html("Ingredient added : " + data); //Manipulerer #mydiv.
+        //         }
+        //     });
+        //     updateList();
+        //     return false; //for at undgå at knappen poster data (default behavior).
+        // }
+        // function obliterate() {
+        //     var data = JSON.stringify({id: $("#remId").val(), name: "", amount: 0.0});
+        //     console.log(data);
+        //     $.ajax({				 //Indleder et asynkront ajax kald
+        //         url : 'rest/ingredient/delete',
+        //         type : 'POST',	       //Typen af HTTP requestet (GET er default)
+        //         data: data,
+        //         contentType: 'application/json',
+        //         success : function(data){//Funktion der skal udføres når data er hentet
+        //             console.log(data);
+        //             $('#mydiv').html("Ingredient obliterated : " + data); //Manipulerer #mydiv.
+        //         }
+        //     });
+        //     updateList();
+        //     return false; //for at undgå at knappen poster data (default behavior).
+        // }
+        $(document).ready(function() {
+            updateList();
+        });
+    </script>
+</head>
+<body>
+
+<!--<h1>Opret ingrediens</h1>-->
+<!--<form id="ingredientform">-->
+<!--    ID: <input type="text" name="id" id="id">-->
+<!--    Navn: <input type="text" name="name" id="name">-->
+<!--    Mængde: <input type="text" name="amount" id="amount">-->
+<!--    <input type="button" onclick="create();" value="Create ingredient">-->
+<!--</form>-->
+<!--<div id="mydiv"></div>-->
+
+<h1>Brugere</h1>
+<table id="liste">
+</table>
+
+<!--ID: <input type="text" id="remId">-->
+<!--<input type="button" onclick="obliterate();" value="Slet bruger">-->
+
+</body>
+</html>
