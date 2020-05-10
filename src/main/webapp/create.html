@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+<script>
+    function create() {
+        var data =  $('#form').serializeJSON();
+        console.log(data);
+        $.ajax({				 //Indleder et asynkront ajax kald
+            url : 'rest/user/create',
+            type : 'POST',	       //Typen af HTTP requestet (GET er default)
+            data: data,
+            contentType: 'application/json',
+            success : function(data){//Funktion der skal udføres når data er hentet
+                console.log(data);
+                $('#message').html("User created : " + data); //Manipulerer #mydiv.
+            }
+        });
+        updateList();
+        $("#container").html("");
+        return false; //for at undgå at knappen poster data (default behavior).
+    }
+</script>
+</head>
+<body>
+
+<h1>Opret bruger</h1>
+<form id="form">
+    ID: <input type="text" name="userId" id="userId"><br>
+    Navn: <input type="text" name="userName" id="userName"><br>
+    Initialer: <input type="text" name="ini" id="ini"><br>
+    CPR: <input type="text" name="cpr" id="cpr"><br>
+    Password: <input type="text" name="password" id="password"><br>
+    <select name="role" id="role">
+        <option disabled selected hidden>Select role model</option>
+        <option>Admin</option>
+        <option>Pharmaceut</option>
+        <option>Production leader</option>
+        <option>Lab technician</option>
+    </select><br>
+
+    <input type="button" onclick="create();" value="Opret">
+</form>
+<div id="message"></div>
+
+</body>
+</html>

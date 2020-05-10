@@ -1,37 +1,3 @@
-/* Vi vil ikke have at teksten er centreret i tabellen */
-.brugertable {
-    /* Auto margin i højre og venstre side (her alle), gør
-        elementet bliver centreret på skærmen. */
-    margin: auto;
-    margin-top: 2%;
-    text-align: left;
-}
-
-/* Giver padding på alle headers og celler i tabellen.
-    Padding er afstand fra cellens kant til cellens indhold. */
-.brugertable th, .brugertable td {
-    padding: 8px;
-}
-
-/* Vi kan vælge alle rows (<tr>), der er et "ulige index"
-    af sin parent. (dvs. hver anden række i tabellen) */
-.brugertable tr:nth-child(odd) {
-    background: #eee;
-}
-
-/* Vi kan vælge første celle i hver række */
-.brugertable td:first-child {
-    font-style: italic;
-    text-align: center;
-}
-
-/* Vi kan ændre stylen på vores links i tabellen */
-.brugertable a {
-    color: var(--col-primary);
-    text-decoration: none;
-}
-
-/* Vi kan ændre hover stylen på links i tabellen*/
-.brugertable a:hover {
-    color: var(--col-secondary);
+.table {
+    background-color: blanchedalmond;
 }

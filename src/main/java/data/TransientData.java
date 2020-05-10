@@ -14,17 +14,19 @@ public class TransientData implements IUserDAO {
 
     //Insert some dummy data
     static {
-        users.add(new UserDTO(2324, "Stig Hoegh", "SH", "010281-2855", "pojo", "Admin"));
+        users.add(new UserDTO(1, "Stig Hoegh", "SH", "010281-2855", "pojo", "Admin"));
+        users.add(new UserDTO(2, "Noam Chomski", "NC", "020382-2755", "uncle", "Pharmacist"));
+        users.add(new UserDTO(3, "Ole Bole", "OB", "030483-2655","user", "Team leader"));
     }
 
     private Boolean existsUser(UserDTO user) {
         for (UserDTO u:
                 users) {
-            if(user.getCpr() == u.getCpr())
+            if(user.getCpr() != null && user.getCpr() == u.getCpr())
                 return true;
             if(user.getUserId() == u.getUserId())
                 return true;
-            if(user.getUserName().equals(u.getUserName()))
+            if(user.getUserName() != null && user.getUserName().equals(u.getUserName()))
                 return true;
         }
         return false;
