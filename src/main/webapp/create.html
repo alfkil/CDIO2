@@ -21,6 +21,21 @@
         $("#container").html("");
         return false; //for at undgå at knappen poster data (default behavior).
     }
+    function getVacantId() {
+        $.ajax({				 //Indleder et asynkront ajax kald
+            url : 'rest/user/id',
+            type : 'GET',	       //Typen af HTTP requestet (GET er default)
+            contentType: 'application/json',
+            success : function(data){//Funktion der skal udføres når data er hentet
+                console.log(data);
+                $("#userId").val(data);
+            }
+        });
+        return false; //for at undgå at knappen poster data (default behavior).
+    }
+    $(document).ready(function() {
+        getVacantId();
+    });
 </script>
 </head>
 <body>

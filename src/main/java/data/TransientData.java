@@ -56,6 +56,7 @@ public class TransientData implements IUserDAO {
         return findUser(user);
     }
 
+    @Override
     public Boolean updateUser(UserDTO user) {
         UserDTO u = findUser(user);
         if(u != null) {
@@ -70,6 +71,7 @@ public class TransientData implements IUserDAO {
         return false;
     }
 
+    @Override
     public Boolean deleteUser(UserDTO user) {
         if(existsUser(user)) {
             UserDTO u = findUser(user);
@@ -79,4 +81,12 @@ public class TransientData implements IUserDAO {
         return false;
     }
 
+    @Override
+    public Integer getVacantId() {
+        for(int i = 1; i < Integer.MAX_VALUE; i++) {
+            if(!existsUser(new UserDTO(i, "", "", "", "", "")))
+                return i;
+        }
+        return null;
+    }
 }

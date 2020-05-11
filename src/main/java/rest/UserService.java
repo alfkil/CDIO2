@@ -4,10 +4,7 @@ import data.IUserDAO;
 import data.TransientData;
 import dto.UserDTO;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/user")
@@ -43,6 +40,12 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Boolean deleteIngredient(UserDTO user) {
         return data.deleteUser(user);
+    }
+
+    @GET
+    @Path("/id")
+    public Integer getVacantId() {
+        return data.getVacantId();
     }
 }
 

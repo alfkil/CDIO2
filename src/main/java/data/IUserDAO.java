@@ -7,4 +7,5 @@ public interface IUserDAO {
     public UserDTO readUser(UserDTO user);
     public Boolean updateUser(UserDTO user);
     public Boolean deleteUser(UserDTO user);
+    public Integer getVacantId();
 }
