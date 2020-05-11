@@ -32,6 +32,14 @@ public class TransientData implements IUserDAO {
         return false;
     }
 
+    private Boolean existsUser(int id) {
+        for(UserDTO u : users) {
+            if(u.getUserId() == id)
+                return true;
+        }
+        return false;
+    }
+
     private UserDTO findUser(UserDTO user) {
         for(UserDTO u : users) {
             if(user.getUserId() == u.getUserId())
@@ -89,7 +97,7 @@ public class TransientData implements IUserDAO {
     @Override
     public Integer getVacantId() {
         for(int i = 1; i < Integer.MAX_VALUE; i++) {
-            if(!existsUser(new UserDTO(i, "", "", "", "", "")))
+            if(!existsUser(i))
                 return i;
         }
         return null;
