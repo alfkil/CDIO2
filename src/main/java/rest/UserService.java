@@ -6,6 +6,7 @@ import dto.UserDTO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/user")
 public class UserService {
@@ -26,6 +27,13 @@ public class UserService {
     @Produces(MediaType.APPLICATION_JSON)
     public UserDTO readIngredient(UserDTO user) {
         return data.readUser(user);
+    }
+
+    @GET
+    @Path("/readAll")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UserDTO> readIngredient() {
+        return data.readAll();
     }
 
     @POST

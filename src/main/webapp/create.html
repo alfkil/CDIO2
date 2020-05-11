@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Create</title>
-<script>
+    <link rel="stylesheet" type="text/css" href="create.css">
+    <script>
     function create() {
         var data =  $('#form').serializeJSON();
         console.log(data);
@@ -14,10 +15,9 @@
             contentType: 'application/json',
             success : function(data){//Funktion der skal udføres når data er hentet
                 console.log(data);
-                $('#message').html("User created : " + data); //Manipulerer #mydiv.
+                updateList();
             }
         });
-        updateList();
         $("#container").html("");
         return false; //for at undgå at knappen poster data (default behavior).
     }
@@ -41,6 +41,7 @@
 <body>
 
 <h1>Opret bruger</h1>
+<div class="formcontainer">
 <form id="form">
     ID: <input type="text" name="userId" id="userId"><br>
     Navn: <input type="text" name="userName" id="userName"><br>
@@ -57,7 +58,7 @@
 
     <input type="button" onclick="create();" value="Opret">
 </form>
-<div id="message"></div>
+</div>
 
 </body>
 </html>

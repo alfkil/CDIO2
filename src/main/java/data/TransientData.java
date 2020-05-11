@@ -57,6 +57,11 @@ public class TransientData implements IUserDAO {
     }
 
     @Override
+    public List<UserDTO> readAll() {
+        return users;
+    }
+
+    @Override
     public Boolean updateUser(UserDTO user) {
         UserDTO u = findUser(user);
         if(u != null) {

@@ -6,33 +6,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="jquery.serializer.js"></script>
     <script src="test.js"></script>
+    <link rel="stylesheet" type="text/css" href="client.css">
     <script>
-        function test() {
-            console.log('test');
-        }
-
         function updateList() {
-            test();
             $("#liste").html('<tr><th>ID</th><th>Navn</th><th>Initialer</th><th>CPR</th><th>Password</th><th>Rolle</th></tr>');
-            for(var i = 1; i < 1000; i++) {
-                var data = JSON.stringify({userId: i});
-                $.ajax({				 //Indleder et asynkront ajax kald
-                    url : 'rest/user/read',
-                    type : 'POST',	       //Typen af HTTP requestet (GET er default)
-                    data: data,
-                    contentType: 'application/json',
-                    success : function(back){//Funktion der skal udføres når data er hentet
-                        console.log(back);
-                        if(back != undefined) {
-                            // var result = JSON.parse(back);
-                            $('#liste').append("<tr><td>" + back.userId + "</td><td>" + back.userName + "</td><td>" + back.ini + "</td><td>" + back.cpr + "</td><td>" + back.password + "</td><td>" + back.role + "</td>");
-                        }
-                    }
-                });
-            }
+
+            $.ajax({				 //Indleder et asynkront ajax kald
+                url : 'rest/user/readAll',
+                type : 'GET',	       //Typen af HTTP requestet (GET er default)
+                contentType: 'application/json',
+                success : function(back){//Funktion der skal udføres når data er hentet
+                    console.log(back);
+                    back.forEach(function(value, index, array) {
+                        $('#liste').append(
+                            "<tr><td>"
+                            + value.userId + "</td><td>"
+                            + value.userName + "</td><td>"
+                            + value.ini + "</td><td>"
+                            + value.cpr + "</td><td>"
+                            + value.password + "</td><td>"
+                            + value.role + "</td><td class='deleter' onclick='deleteUser(" + value.userId + ");'><u>delete user</u></td>");
+                    });
+                }
+            });
         }
-        function obliterate() {
-            var data = JSON.stringify({userId: $("#delete").val()});
+        function deleteUser(userId) {
+            var data = JSON.stringify({userId: userId});
             console.log(data);
             $.ajax({				 //Indleder et asynkront ajax kald
                 url : 'rest/user/delete',
@@ -40,11 +39,9 @@
                 data: data,
                 contentType: 'application/json',
                 success : function(data){//Funktion der skal udføres når data er hentet
-                    console.log(data);
-                    $('#mydiv').html("Ingredient obliterated : " + data); //Manipulerer #mydiv.
+                    updateList();
                 }
             });
-            updateList();
             return false; //for at undgå at knappen poster data (default behavior).
         }
         function loadForm() {
@@ -62,12 +59,7 @@
 </table>
 
 <input type="button" value="Opret ny bruger" onclick="loadForm();">
-<input type="button" value="Slet bruger" onclick="obliterate();">
-<input type="text" id="delete">
-
 <div id="container"></div>
-<!--ID: <input type="text" id="remId">-->
-<!--<input type="button" onclick="obliterate();" value="Slet bruger">-->
 
 </body>
 </html>
