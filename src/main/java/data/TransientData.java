@@ -4,10 +4,6 @@ import dto.UserDTO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class TransientData implements IUserDAO {
     static List<UserDTO> users = new ArrayList<>();
@@ -22,7 +18,7 @@ public class TransientData implements IUserDAO {
     private Boolean existsUser(UserDTO user) {
         for (UserDTO u:
                 users) {
-            if(user.getCpr() != null && user.getCpr() == u.getCpr())
+            if(user.getCpr() != null && user.getCpr().equals(u.getCpr()))
                 return true;
             if(user.getUserId() == u.getUserId())
                 return true;
@@ -52,6 +48,7 @@ public class TransientData implements IUserDAO {
         return null;
     }
 
+    @Override
     public Boolean createUser(UserDTO user) {
         if(!existsUser(user)) {
             users.add(user);
@@ -60,6 +57,7 @@ public class TransientData implements IUserDAO {
         return false;
     }
 
+    @Override
     public UserDTO readUser(UserDTO user) {
         return findUser(user);
     }
